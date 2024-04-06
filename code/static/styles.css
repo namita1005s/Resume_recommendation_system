@@ -1,0 +1,248 @@
+/* Global Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background-position: left;
+  background-size: cover;
+  background-image: url('https://miro.medium.com/v2/resize:fit:2000/format:webp/1*ET2aiKwnLubVd_tUNsY8Eg.jpeg');
+}
+
+li {
+  list-style: none;
+}
+
+/* Headers Styles */
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.back_navbar {
+  position: fixed;
+  margin: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  background-color: #1D2031;
+  background-color: rgba(29, 32, 49, 0.54);
+}
+
+nav {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(6, 6, 6, 0.8);
+}
+
+nav a {
+  font-size: 2.5rem;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+nav a .blue {
+  color: #AD92F1;
+}
+
+nav a .white {
+  color: #E8E8E8;
+}
+
+nav div .navbar_menu {
+  font-size: 2rem;
+  color: #E8E8E8
+}
+
+nav div a .fa-bars:hover {
+  cursor: pointer;
+  color: white;
+}
+
+/* Drop Menu Styles */
+
+.darkin_kayn {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  width: calc(100% - 250px);
+  height: 100%;
+  flex-direction: column;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.drop_menu {
+  transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  flex-direction: column;
+  overflow: auto;
+  display: none;
+  background-color: #0B0A0F;
+}
+
+div .close_menu {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  background-color: #252231;
+  border-radius: 20px;
+  width: 140px;
+  height: 30px;
+  color: #ffffff;
+  font-size: 15px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+div .close_menu:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  background-color: #474063;
+}
+
+ul {
+  list-style: none;
+}
+
+.drop_menu .menu_list {
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.drop_menu .menu_list .header {
+  font-size: 25px;
+  height: 45px;
+  background-color: #191722;
+}
+
+.drop_menu .menu_list .header div {
+  font-size: 25px;
+  color: white;
+  height: 40px;
+  background-color: #0B0A0F;
+}
+
+.drop_menu .menu_list .column {
+  padding: 10px;
+  background-color: rgba(217, 217, 217, 0.1);
+}
+
+.drop_menu .menu_list .column li {
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+}
+
+.drop_menu .menu_list .column li a {
+  text-decoration: none;
+  color: white;
+  white-space: nowrap;
+}
+
+.drop_menu .menu_list .column li a:hover {
+  color: red;
+  animation: scrollText 15s linear infinite;
+}
+
+.drop_menu.open {
+  position: fixed;
+  display: flex;
+}
+
+.darkin_kayn.open {
+  position: fixed;
+  display: flex;
+}
+
+/* Apology Styles */
+
+.apology {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main Container Styles */
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.container .form-group {
+  margin-bottom: 20px;
+}
+
+.container .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.container .form-group input {
+  width: calc(100% - 40px);
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.container .form-group input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.container .form-group input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.container .register-link {
+  font-size: 16px;
+  text-align: center;
+}
+
+.container .register-link a {
+  color: blue;
+  text-decoration: none;
+}
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+}

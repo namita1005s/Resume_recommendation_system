@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+{% block css %}
+    <!-- Link to your custom styles.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Your index page content goes here -->
+    <div class="container">
+        <h1>Welcome to the Project!</h1>
+        <p><b>Find Your Dream Job Now</b>.</p>
+        <p>Build your profile and let recruiters find you</p>
+        <a href="/register" class="btn btn-primary">Register</a>
+        <P>Already Registered ? <a href="/login" class="btn btn-primary">Login</a> Here</P>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- Your additional JavaScript for the index page goes here -->
+    <script>
+        // Add your scripts here
+    </script>
+{% endblock %}

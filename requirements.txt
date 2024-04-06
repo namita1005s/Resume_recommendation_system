@@ -1,0 +1,11 @@
+ipykernel
+pandas
+matplotlib
+dputils
+seaborn
+nltk
+textblob
+spacy
+plotly
+flask
+sqlalchemy

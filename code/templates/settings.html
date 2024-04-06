@@ -1,0 +1,134 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block main %}
+<main class="settings_main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="s_menu">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active uname_btn" href="#">Change Username</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pwd_btn" href="#">Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="s_content">
+                    <div class="c_name visible">
+                        <h3>Change Username</h3>
+                        <form action="/change_username" method="post" id="username_form">
+                            <div class="mb-3">
+                                <label for="new_username" class="form-label">New Username:</label>
+                                <input type="text" class="form-control" id="new_username" name="new_username" placeholder="Enter new username">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                    <div class="c_password hidden">
+                        <h3>Change Password</h3>
+                        <form action="/change_password" method="post" id="password_form">
+                            <div class="mb-3">
+                                <label for="old_pwd" class="form-label">Old Password:</label>
+                                <input type="password" class="form-control" id="old_pwd" name="old_pwd">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new_pwd" class="form-label">New Password:</label>
+                                <input type="password" class="form-control" id="new_pwd" name="new_pwd">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmation" class="form-label">Confirm New Password:</label>
+                                <input type="password" class="form-control" id="confirmation" name="confirmation">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameButton = document.querySelector(".uname_btn");
+        const pwdButton = document.querySelector(".pwd_btn");
+        const nameMenu = document.querySelector(".c_name");
+        const pwdMenu = document.querySelector(".c_password");
+
+        nameButton.addEventListener('click', () => {
+            nameMenu.classList.add('visible');
+            nameMenu.classList.remove('hidden');
+            pwdMenu.classList.add('hidden');
+            pwdMenu.classList.remove('visible');
+
+            nameButton.classList.add('active');
+            pwdButton.classList.remove('active');
+        });
+
+        pwdButton.addEventListener('click', () => {
+            pwdMenu.classList.add('visible');
+            pwdMenu.classList.remove('hidden');
+            nameMenu.classList.add('hidden');
+            nameMenu.classList.remove('visible');
+
+            pwdButton.classList.add('active');
+            nameButton.classList.remove('active');
+        });
+
+        const usernameForm = document.getElementById('username_form');
+        const passwordForm = document.getElementById('password_form');
+
+        usernameForm.addEventListener('submit', function(event) {
+            const newUsernameInput = document.getElementById('new_username');
+            if (!newUsernameInput.value.trim()) {
+                newUsernameInput.classList.add('is-invalid');
+                newUsernameInput.nextElementSibling.textContent = 'Please enter a new username.';
+                event.preventDefault();
+            }
+        });
+
+        passwordForm.addEventListener('submit', function(event) {
+            const oldPwdInput = document.getElementById('old_pwd');
+            const newPwdInput = document.getElementById('new_pwd');
+            const confirmationInput = document.getElementById('confirmation');
+
+            let isValid = true;
+
+            if (!oldPwdInput.value.trim()) {
+                oldPwdInput.classList.add('is-invalid');
+                oldPwdInput.nextElementSibling.textContent = 'Please enter your old password.';
+                isValid = false;
+            }
+
+            if (!newPwdInput.value.trim()) {
+                newPwdInput.classList.add('is-invalid');
+                newPwdInput.nextElementSibling.textContent = 'Please enter a new password.';
+                isValid = false;
+            } else if (newPwdInput.value.trim().length < 6) {
+                newPwdInput.classList.add('is-invalid');
+                newPwdInput.nextElementSibling.textContent = 'Password must be at least 6 characters long.';
+                isValid = false;
+            }
+
+            if (confirmationInput.value.trim() !== newPwdInput.value.trim()) {
+                confirmationInput.classList.add('is-invalid');
+                confirmationInput.nextElementSibling.textContent = 'Passwords do not match.';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+{% endblock %}
+

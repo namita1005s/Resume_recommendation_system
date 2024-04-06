@@ -1,0 +1,87 @@
+{% extends 'layout/base.html' %}
+
+{% block css %}
+<style>
+    body {
+        background-color: beige;
+        background-image: url("https://miro.medium.com/v2/resize:fit:828/format:webp/1*G1LnmlL-FYGySnJS6tg7vQ.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-family: Arial, sans-serif; /* Optionally adjust font family */
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 30px;
+        padding: 2em; /* Increased padding for better spacing */
+        max-width: 500px; /* Adjusted maximum width */
+        margin: 100px auto 0; /* Center the container horizontally and add top margin */
+    }
+
+    .container h2 {
+        margin-bottom: 20px; /* Add space below the heading */
+    }
+
+    .mb-3 {
+        margin-bottom: 20px; /* Add space between form elements */
+    }
+
+    .form-label {
+        font-weight: bold; /* Make form labels bold */
+    }
+
+    .form-control {
+        width: 100%; /* Make form inputs fill the width of the container */
+        padding: 10px; /* Adjusted input padding for better spacing */
+        border: 1px solid #ccc; /* Add a border to form inputs */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+        margin-bottom: 15px; /* Added margin bottom for better separation */
+    }
+
+    .form-text {
+        font-size: 12px; /* Optionally adjust the font size of help text */
+    }
+
+    input[type="submit"] {
+        background-color: #007bff; /* Change submit button background color */
+        color: #fff; /* Change submit button text color */
+        border: none; /* Remove default button border */
+        padding: 12px 20px; /* Adjusted button padding for better appearance */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+        font-size: 16px; /* Adjusted font size for better visibility */
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3; /* Change submit button background color on hover */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Add New Job</h2>
+    <form method="post" class="card">
+        <div class="card-body">
+            <!-- Job Title -->
+            <div class="mb-3">
+                <label for="title" class="form-label">Job title</label>
+                <input type="text" class="form-control" name="title" id="title" aria-describedby="jobHelp" placeholder="Enter job title">
+                <small id="jobHelp" class="form-text text-muted">Help text</small>
+            </div>
+    
+            <!-- Job Description -->
+            <div class="mb-3">
+                <label for="jobDescription" class="form-label">Job Description</label>
+                <textarea class="form-control" name="jobDescription" id="jobDescription" rows="5"></textarea>
+            </div>
+    
+            <!-- Submit Button -->
+            <a href="/show_applications">
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
