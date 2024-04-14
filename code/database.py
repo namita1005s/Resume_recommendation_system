@@ -17,16 +17,19 @@ class User(Base):
 
     def __str__(self):
         return self.username
-
 class File(Base):
     __tablename__ = 'files'
     id = Column(Integer, primary_key=True)
     path = Column(String(255), nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'))
+    name = Column(String(255), nullable=False)  # New field
+    email = Column(String(255), nullable=False)  # New field
+    skills = Column(String(255), nullable=True)  # New field
     created_at = Column(DateTime, default=datetime.now)
 
     def __str__(self):
         return self.path
+
 
 class Job(Base):
     __tablename__ = 'jobs'

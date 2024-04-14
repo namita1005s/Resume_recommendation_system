@@ -1,6 +1,14 @@
-{% extends 'layout.html' %}
+{% extends 'layout/base.html' %}
 
-{% block content %}
+{% block css %}
+    <!-- Link to your custom styles.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+
+    
+    </style>
+    
+{% endblock %}
 <head>
     <meta charset="UTF-8">
     <title>View Resumes</title>
@@ -33,13 +41,13 @@
                         <strong>Skills:</strong> {{ user['skills']|join(', ') }}<br>
                         <strong>Resume:</strong> <a href="/fetch_resume/{{ user['resume_id'] }}">View Resume</a>
                     </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-danger">No resumes found.</p>
-        {% endif %}
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-{% endblock %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-danger">No resumes found.</p>
+            {% endif %}
+        </div>
+    
+       
+    </body>
+    {% endblock %}

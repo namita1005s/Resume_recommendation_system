@@ -1,8 +1,16 @@
-{% extends 'title.html' %}
+{% extends 'layout/base.html' %}
 
-{% block title %}Register{% endblock %}
+{% block css %}
+    <!-- Link to your custom styles.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
 
-{% block main %}
+    
+    </style>
+    
+{% endblock %}
+
+{% block content %}
 <div class="container register">
     <h2>Register</h2>
     <form action="/register" method="post">
@@ -32,5 +40,8 @@
 </div>
 
 {% endblock %}
-
+{% block js %}
+    <!-- Your additional JavaScript for the index page goes here -->
+  
+{% endblock %}
 

@@ -75,6 +75,11 @@
         </div>
         <div class="menu_list">
             <div class="column">
+                <li><a href="/logout">Logout</a></li>
+            </div>
+        </div>
+        <div class="menu_list">
+            <div class="column">
                 <li><a href="/settings">Settings</a></li>
             </div>
         </div>
@@ -83,8 +88,8 @@
     
     <div class="darkin_kayn"></div>
     <main>
-        {% block content %}{% endblock %}
-        
+        {% include 'message.html' %}
+        {% block content %}{% endblock %}    
     </main>
 
     <footer>

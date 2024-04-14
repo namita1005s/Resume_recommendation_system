@@ -3,22 +3,30 @@
 {% block css %}
     <!-- Link to your custom styles.css file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+
+    
+    </style>
+    
 {% endblock %}
 
 {% block content %}
     <!-- Your index page content goes here -->
-    <div class="container">
+    <div class="container bg-light p-4 text-center" style="width: 50%;">
         <h1>Welcome to the Project!</h1>
         <p><b>Find Your Dream Job Now</b>.</p>
         <p>Build your profile and let recruiters find you</p>
-        <a href="/register" class="btn btn-primary">Register</a>
-        <P>Already Registered ? <a href="/login" class="btn btn-primary">Login</a> Here</P>
+        <div class="text-center mb-3"><a href="/register" class="btn btn-primary" >Register</a></div>
+        <div class="text-center">
+            <P>Already Registered ? 
+        </div>
+        <div class="text-center">
+            <a href="/login" class="btn btn-primary" >Login to continue</a></P>
+        </div>
     </div>
 {% endblock %}
 
 {% block js %}
     <!-- Your additional JavaScript for the index page goes here -->
-    <script>
-        // Add your scripts here
-    </script>
+  
 {% endblock %}

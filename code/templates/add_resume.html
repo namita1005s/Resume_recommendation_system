@@ -1,5 +1,5 @@
 
-{% extends 'layout/base.html' %}
+{% extends 'home.html' %}
 {% block css %}
 <style>
     body {
@@ -57,22 +57,13 @@
 {% endblock %}
 
 {% block content %}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
-    <div class="container mt-5">
+<div class="container mt-5">
+        
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1 class="mb-4 text-center">Add Resume</h1>
-                <form method="POST" enctype="multipart/form-data" action="/upload">
+                <form method="POST" enctype="multipart/form-data">
                     <!-- Full Name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
@@ -94,7 +85,7 @@
                         <input type="file" name="resume" class="form-control" accept=".pdf, .doc, .docx" required>
                     </div>
                     <!-- Submit Button -->
-                    <a href="/show_jobs"></a>
+                    <a href="/show/jobs"></a>
                     <button type="submit" class="btn btn-primary">Upload</button>
                 </a>
                 </form>

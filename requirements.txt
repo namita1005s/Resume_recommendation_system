@@ -9,3 +9,14 @@ spacy
 plotly
 flask
 sqlalchemy
+python-dotenv
+docx2txt
+pdfminer
+flask-sqlalchemy
+flask-migrate
+python-dotenv
+flask-login
+pdfminer.six
+scikit-learn
+
+
