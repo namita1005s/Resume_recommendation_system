@@ -14,7 +14,49 @@
     <link href="/static/favicon.ico" rel="icon">
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    {% block css %}{% endblock %}
+    {% block css %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #fddb92, #d1fdff);
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center;
+              font-family: Arial, sans-serif;
+              /* Optionally adjust font family */
+          }
+        
+        .card {
+            width: 80%; /* Adjust the width as needed */
+            margin-bottom: 30px; /* Add margin at the bottom */
+            margin-right: 15px; /* Add margin on the right side */
+            margin-left: 15px; /* Add margin on the left side */
+            background: linear-gradient(135deg, #c7a9e9, #a1c4fd); /* Add gradient background */
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate__animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-timing-function: ease-out;
+        }
+
+        .animate__fadeInUp {
+            animation-name: fadeInUp;
+        }
+    </style>
+    {% endblock %}
+    
 </head>
 
 <body>
@@ -64,23 +106,16 @@
         <br>
         <div class="menu_list">
             <div class="column">
+                <li>Welcome: {{session.username}}</li>
                 <li><a href="/add/resume">ADD RESUME</a></li>
+                <li><a href="/resumes">VIEW RESUMES</a></li>
                 <li><a href="/add/job">ADD JOB</a></li>
-            </div>
-        </div>
-        <div class="menu_list">
-            <div class="column">
-                <li><a href="/show/jobs">VIEW JOBS</a></li>
-            </div>
-        </div>
-        <div class="menu_list">
-            <div class="column">
-                <li><a href="/logout">Logout</a></li>
-            </div>
+                <li><a href="/show/jobs">VIEW JOBS</a></li>            </div>
         </div>
         <div class="menu_list">
             <div class="column">
                 <li><a href="/settings">Settings</a></li>
+                <li><a href="/logout">Logout</a></li>
             </div>
         </div>
     </div>
@@ -89,8 +124,67 @@
     <div class="darkin_kayn"></div>
     <main>
         {% include 'message.html' %}
-        {% block content %}{% endblock %}    
+        {% block content %}
+        <!-- Your new content starts here -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 mx-auto text-center">
+                        <h1 class="display-4 mb-3">Welcome to Naukri Link Hub</h1>
+                        <p class="lead mb-4">
+                            Naukri Link Hub is an advanced platform designed to seamlessly connect resumes with job descriptions using AI technology. 
+                            Our system enables employers to upload job descriptions and candidates to submit their resumes, creating an efficient process 
+                            for matching job openings with qualified candidates.
+                        </p>
+                        
+                        <p class="lead mb-4">
+                            Leveraging artificial intelligence, Naukri Link Hub accurately aligns the skills required for a job with those highlighted 
+                            in candidates' resumes. This automated matching process significantly reduces the time and effort traditionally needed in the 
+                            hiring process, allowing companies to quickly and effectively identify ideal candidates.
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm animate__animated animate__fadeInUp">
+                    <div class="card-body">
+                        <h5 class="card-title">Resume: Dos and Don'ts</h5>
+                        <p class="card-text">Tips on how to build a stellar resume.</p>
+                        <a href="https://www.themuse.com/advice/42-resume-dos-and-donts-every-job-seeker-should-know" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More cards -->
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm animate__animated animate__fadeInUp">
+                    <div class="card-body">
+                        <h5 class="card-title">Strategies to Hire Employees</h5>
+                        <p class="card-text">Tips on how to hire employees</p>
+                        <a href="https://www.forbes.com/advisor/business/how-to-hire-employees/" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm animate__animated animate__fadeInUp">
+                    <div class="card-body">
+                        <h5 class="card-title">Best HR Resources</h5>
+                        <p class="card-text">List of top 21 HR Resources</p>
+                        <a href="https://www.bamboohr.com/blog/top-websites-for-hr-professionals" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Your new content ends here -->
+        {% endblock %}    
     </main>
+
 
     <footer>
         <!-- place footer here -->

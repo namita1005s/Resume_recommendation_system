@@ -1,20 +1,21 @@
-
 {% extends 'home.html' %}
+
 {% block css %}
 <style>
     body {
         background-color: beige;
-        /*background-image: url("https://miro.medium.com/v2/resize:fit:828/format:webp/1*G1LnmlL-FYGySnJS6tg7vQ.jpeg");*/
+        background-image: url("https://miro.medium.com/v2/resize:fit:828/format:webp/1*G1LnmlL-FYGySnJS6tg7vQ.jpeg");
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center center;
+        background-position: center;
+        font-family: Arial, sans-serif; /* Optionally adjust font family */
     }
 
     .container {
         background-color: rgba(255, 255, 255, 0.8);
         border-radius: 30px;
         padding: 2em; /* Increased padding for better spacing */
-        max-width: 500px; /* Adjusted maximum width */
+        max-width: 80ch; /* Adjusted maximum width */
         margin: 100px auto 0; /* Center the container horizontally and add top margin */
     }
 
@@ -56,45 +57,25 @@
         background-color: #0056b3; /* Change submit button background color on hover */
     }
 </style>
-
-
-
 {% endblock %}
 
 {% block content %}
+<div class="container py-5">
+    <h2>Job #{{job.id}}</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- Job Title -->
+            <div class="mb-3">
+                <p class="fs-3" name="title" >{{job.title}}</p>
 
-<div class="container mt-5">
-        
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h1 class="mb-4 text-center">Add Resume</h1>
-                <form method="POST" enctype="multipart/form-data">
-                    <!-- Full Name -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name:</label>
-                        <input type="text" name="name" class="form-control" required>
-                    </div>
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-                    <!-- Skills -->
-                    <div class="mb-3">
-                        <label for="skills" class="form-label">Skills (comma-separated):</label>
-                        <input type="text" name="skills" class="form-control">
-                    </div>
-                    <!-- Resume File -->
-                    <div class="mb-3">
-                        <label for="resume" class="form-label">Resume (PDF only):</label>
-                        <input type="file" name="resume" class="form-control" accept=".pdf, .doc, .docx" required>
-                    </div>
-                    <!-- Submit Button -->
-                    <a href="/show/jobs"></a>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </a>
-                </form>
+            </div>
+    
+            <!-- Job Description -->
+            <div class="mb-3">
+                <label for="jobDescription" class="form-label">Job Description</label>
+                <p  name="jobDescription" id="jobDescription" rows="5">{{job.description|linebreaksbr|safe}}</p>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -1,22 +1,46 @@
 {% extends 'home.html' %}
+{% block css %}
+<style>
+  body {
+    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      /* Optionally adjust font family */
+  }
+
+  .card-text {
+      color: #333; /* Set text color for card content */
+  }
+
+  
+      
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container" style="margin-top: 60px;"">
-  <section class="jumbotron text-center" >
+<div class="container" style="margin-top: 60px;">
+  <section class="jumbotron text-center">
     
     <br>
-    <div class="row" >
+    <div class="row">
       {% for job in jobs %}
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
           <div class="card-body d-flex flex-column">
             <h3 class="card-title">{{job.title}}</h3>
             <div class="mb-2 text-muted">Date: {{job.created_at}}</div>
-            <p class="card-text flex-grow-1">{{job.description}}</p>
-            <div class="d-flex justify-content-center">
+            <p class="card-text flex-grow-1">{{job.description|truncate(100)}}</p>
+            <div class="d-flex justify-content-end">
               <a href="/analyse/resumes/{{job.id}}" class="btn btn-primary btn-sm mt-2">Analyse</a>
-              <a href="/delete/job/{{job.id}}" class="btn btn-danger btn-sm mt-2 ms-2">Delete</a>
-              <a href="/edit/job/{{job.id}}" class="btn btn-success btn-sm mt-2 ms-2">Edit</a>
+              <a href="/view/job/{{job.id}}" class="btn btn-success btn-sm mt-2 ms-2">View</a>
+              <a href="/edit/job/{{job.id}}" class="btn btn-warning btn-sm mt-2 ms-2">Edit</a>
+              <a href="/delete/job/{{job.id}}" class="btn btn-danger btn-sm mt-2 ms-2">
+                <i class="fas fa-trash"></i>
+              </a>
             </div>
           </div>
         </div>

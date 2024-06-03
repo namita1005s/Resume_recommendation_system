@@ -1,0 +1,142 @@
+{% extends 'home.html' %}
+
+{% block css %}
+<style>
+  body {
+    background-color: beige;
+    background-size: cover;
+    background-image: none !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    /* Optionally adjust font family */
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    padding: 2em;
+    /* Increased padding for better spacing */
+    max-width: 80ch;
+    /* Adjusted maximum width */
+    margin: 100px auto 0;
+    /* Center the container horizontally and add top margin */
+  }
+
+  .container h2 {
+    margin-bottom: 20px;
+    /* Add space below the heading */
+  }
+
+  .mb-3 {
+    margin-bottom: 20px;
+    /* Add space between form elements */
+  }
+
+  .form-label {
+    font-weight: bold;
+    /* Make form labels bold */
+  }
+
+  .form-control {
+    width: 100%;
+    /* Make form inputs fill the width of the container */
+    padding: 10px;
+    /* Adjusted input padding for better spacing */
+    border: 1px solid #ccc;
+    /* Add a border to form inputs */
+    border-radius: 5px;
+    /* Add border-radius for rounded corners */
+    margin-bottom: 15px;
+    /* Added margin bottom for better separation */
+  }
+
+  .form-text {
+    font-size: 12px;
+    /* Optionally adjust the font size of help text */
+  }
+
+  input[type="submit"] {
+    background-color: #007bff;
+    /* Change submit button background color */
+    color: #fff;
+    /* Change submit button text color */
+    border: none;
+    /* Remove default button border */
+    padding: 12px 20px;
+    /* Adjusted button padding for better appearance */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+    border-radius: 5px;
+    /* Add border-radius for rounded corners */
+    font-size: 16px;
+    /* Adjusted font size for better visibility */
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+    /* Change submit button background color on hover */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-2">
+  <h2>Job #{{job.id}}</h2>
+  <div class="card">
+    <div class="card-body">
+      <!-- Job Title -->
+      <div class="mb-3">
+        <p class="fs-3" name="title">{{job.title}}</p>
+
+      </div>
+
+      <!-- Job Description -->
+      <div class="mb-3">
+        <label for="jobDescription" class="form-label">Job Description</label>
+        <p name="jobDescription" id="jobDescription" rows="5">{{job.description|truncate(100)|linebreaksbr|safe}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  {% for item in results %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h1 class="display-2 m-0">
+        {{item.score}}
+        <span class="fs-6 border border-primary-subtle rounded-lg px-2">
+          {% if item.score > 80 %}
+          Excellent Match
+          {% elif item.score > 60 %}
+          Good Match
+          {% elif item.score > 40 %}
+          Fair Match
+          {% else %}
+          Poor Match
+          {% endif %}
+        </span>
+      </h1>
+      <h4 class="card-title">
+        Name: {{item.resume.name|title}}
+      </h4>
+      <p class="card-text">
+        <i class="fas fa-envelope"></i>
+        Send email to: <a href="mailto:{{item.resume.email}}" class="btn btn-sm btn-primary">{{item.resume.email}}</a>
+        <br>
+        <i class="fas fa-star"></i>
+        Skills: {{item.resume.skills}}
+      </p>
+      <a class="btn btn-sm btn-outline-primary" href="/resume/show/{{item.resume.id}}">View resume</a>
+    </div>
+    <p class="p-2">
+      {% for word in item.keywords %}
+      <span class="badge rounded-pill text-bg-dark">{{word}}</span>
+      {% endfor %}
+    </p>
+  </div>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

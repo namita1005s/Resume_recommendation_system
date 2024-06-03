@@ -1,0 +1,105 @@
+{% extends "home.html" %}
+{% block css %}
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: none !important;  /* Ensure no background image is set */
+        background-color: transparent !important;  /* Ensure the background is transparent */
+    }
+    
+    .bg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: 300% 300%;
+        background-image: linear-gradient(-45deg, #bb0420 0%, #a0031a 25%, #FFB6C1 51%, #FF69B4 100%);
+        z-index: -1;
+        -webkit-animation: AnimateBG 20s ease infinite;
+        animation: AnimateBG 20s ease infinite;
+    }
+
+    @-webkit-keyframes AnimateBG {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    @keyframes AnimateBG {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    article {
+        height: 80dvh;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg"></div>
+<div class="container">
+    <!-- display all resumes in a table -->
+    <article class="d-flex justify-content-center align-items-center">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead class="table-light">
+                    <caption>
+                        Resumes uploaded
+                    </caption>
+                    <tr>
+                        <th>#id</th>
+                        <th>Name</th>
+                        <th>Skills</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for resume in resumes %}
+                    <tr>
+                        <td>{{resume.id}}</td>
+                        <td>
+                            <b>
+                                {{resume.name}}
+                            </b>
+                        </td>
+                        <td>
+                            <small>{{resume.skills}}</small>
+                        </td>
+                        <td>
+                            <a href="/resume/show/{{resume.id}}" class="btn btn-sm btn-outline-primary">View Resume</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </article>
+</div>
+{% endblock %}

@@ -3,6 +3,9 @@ from flask_bcrypt import generate_password_hash, check_password_hash  # Added im
 from werkzeug.utils import secure_filename
 import os
 from database import DatabaseManager, Job, User, File
+from entity_recognizer import extract_text_from_docx, extract_text_from_pdf, extract_names, extract_emails
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 app.secret_key = 'thisissupersecretkeyfornoone'
@@ -13,6 +16,9 @@ db_manager = DatabaseManager()
 # Dummy user for demonstration purposes
 dummy_user = User(username='dummy', email='dummy@example.com')
 
+@app.template_filter(name='linebreaksbr')
+def linebreaksbr_filter(text):
+    return text.replace('\n', '<br>')
 
 def is_admin():
     return session.get('is_admin', False)
@@ -28,6 +34,10 @@ def index():
 
 @app.route('/about')
 def about():
+    if 'user_authenticated' in session and session['user_authenticated']:
+        show_dropdown_menu = True
+    else:
+        show_dropdown_menu = False
     return render_template('about.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -49,6 +59,7 @@ def login():
             session['email'] = email  # Storing email in session
             session['isauth'] = True  # Storing authentication status in session
             session['user_id'] = user.id  # Storing user id in session
+            session['username'] = user.username  # Storing username in session
             if user.username == 'admin':
                 session['is_admin'] = True
             db_session.close()  # Close the database session
@@ -134,14 +145,12 @@ def add_job():
 
         # Redirect the user to a success page after adding the job
         flash('Job added', 'success')
-        return redirect('/show_applicants')
+        
 
     # If the request method is GET or if the form is not submitted, render the form template
     return render_template('add_job.html', show_dropdown_menu=True)
 
-@app.route('/analyse/resumes/<int:job_id>')
-def show_applications(job_id):
-    return render_template('show_application.html',)
+
 
 
 @app.route('/add/resume', methods=['GET', 'POST'])
@@ -187,7 +196,7 @@ def show_jobs():
 @app.route('/home')
 def home():
     return render_template('home.html')
-
+    
 
 @app.route('/logout')
 def logout():
@@ -196,15 +205,26 @@ def logout():
     return redirect('/')
 
 
-@app.route('/settings',methods=['GET', 'POST'])
-def forgot():
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    # Check if the user is authenticated
     if 'isauth' not in session or not session['isauth']:
         flash('Please login to reset your password', 'danger')
         return redirect('/login')
-    if request.method=='POST':
+    
+    # Handle password reset form submission
+    if request.method == 'POST':
         email = request.form.get('email')
         if email:
-            pass
+            # Here you can implement your password reset logic, such as sending an email
+            # with a password reset link or generating a new temporary password and
+            # sending it via email.
+            
+            # For demonstration purposes, let's assume the password reset is successful
+            flash('Password reset instructions sent to your email', 'success')
+            return redirect('/settings')  # Redirect back to the settings page after resetting the password
+    
+    # Render the settings page
     return render_template('settings.html', title='Password reset page')
 
 
@@ -275,8 +295,15 @@ def resumeview(id):
     db = db_manager.open_db()
     file = db.query(File).filter(File.id==id).first()
     if file is not None:
-        return render_template('show_resume.html', file=file)
+        return render_template('view_resume.html', resume=file)
     return redirect('/resume/add')
+
+# view all resumes
+@app.route('/resumes')
+def resumes():
+    db = db_manager.open_db()
+    resumes = db.query(File).all()
+    return render_template('list_resumes.html', resumes=resumes)
 
 @app.route('/apply/job/<int:job_id>')
 def apply_job(job_id):
@@ -301,7 +328,96 @@ def apply_job(job_id):
         flash('An error occurred while applying for the job', 'danger')
         print(e)
     return redirect('/show_jobs')
+# view job
+@app.route('/view//job/<int:id>')
+def jobview(id):
+    db = db_manager.open_db()
+    job = db.query(Job).filter(Job.id==id).first()
+    if job is not None:
+        return render_template('viewjob.html', job=job)
+    return redirect('/job/list')
 
+# match job
+@app.route('/analyse/resumes/<int:jid>', methods=['GET', 'POST'])
+def jobmatch(jid):
+    db = db_manager.open_db()
+    job = db.query(Job).filter(Job.id==jid).first()
+    if job is not None:
+        resumes = db.query(File).all()
+        results = []
+        for resume in resumes:
+            if resume.path.endswith('.docx'):
+                resume_text = extract_text_from_docx(f"static/upload/{resume.path}")
+            else:
+                resume_text = extract_text_from_pdf(f"static/upload/{resume.path}")
+            print(f'length of resume text: {len(resume_text)}')
+            name = extract_names(resume_text)
+            email = extract_emails(resume_text)
+            data = [resume_text, job.title+" "+job.description]
+            cv = CountVectorizer()    
+            count_matrix = cv.fit_transform(data)
+            matchPercentage = round(cosine_similarity(count_matrix)[0][1] * 100,2)
+            results.append({
+                'resume': resume,
+                'keywords': list(set(name)) or [],
+                'email': email[0] if len(email) > 0 else "",
+                'score': matchPercentage
+            })
+        flash("Successfully analyzed the resumes", "success")
+        return render_template('analysejob.html', job=job, results=results)            
+    return redirect('/job/list')
+
+
+# update password
+@app.route('/update/password', methods=['POST'])
+def update_password():
+    if 'isauth' not in session or not session['isauth']:
+        flash('Please login to update your password', 'danger')
+        return redirect('/login')
+    if request.method == 'POST':
+        password = request.form.get('npassword')
+        cpassword = request.form.get('cpassword')
+        current_password = request.form.get('current_password')
+        if password and cpassword:
+            if password != cpassword:
+                flash('Passwords do not match', 'danger')
+                return redirect('/settings')
+            db = db_manager.open_db()
+            user = db.query(User).filter_by(id=session['user_id']).first()
+            if  user.password != current_password:
+                flash('Current password is incorrect', 'danger')
+                return redirect('/settings')
+            user.password = password
+            db.commit()
+            db.close()
+            flash('Password updated successfully', 'success')
+            return redirect('/settings')
+        else:
+            flash('Please fill in all fields', 'danger')
+            return redirect('/settings')
+    return redirect('/settings')
+
+# update username
+@app.route('/update/username', methods=['POST'])
+def update_username():
+    if 'isauth' not in session or not session['isauth']:
+        flash('Please login to update your username', 'danger')
+        return redirect('/login')
+    if request.method == 'POST':
+        username = request.form.get('new_username')
+        if username:
+            db = db_manager.open_db()
+            user = db.query(User).filter_by(id=session['user_id']).first()
+            user.username = username
+            db.commit()
+            db.close()
+            flash(f'Username updated successfully to {username}', 'success')
+            session['username'] = username
+            return redirect('/settings')
+        else:
+            flash('Please fill in all fields', 'danger')
+            return redirect('/settings')
+    return redirect('/settings')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000, debug=True)

@@ -1,53 +1,33 @@
-{% extends 'layout/base.html' %}
-
+{% extends "home.html" %}
 {% block css %}
-    <!-- Link to your custom styles.css file -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
+<style>
+  body {
+    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      /* Optionally adjust font family */
+  }
 
-    
-    </style>
-    
+  .card-text {
+      color: #333; /* Set text color for card content */
+  }
+
+  
+      
+</style> 
+
 {% endblock %}
-<head>
-    <meta charset="UTF-8">
-    <title>View Resumes</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Matches</h1>
 
-        <!-- Technology Skills Section -->
-        <h2 class="mb-3">Extracted Technology Skills</h2>
-        {% if technology_names %}
-            <ul class="list-group mb-4">
-                {% for tech in technology_names %}
-                    <li class="list-group-item">{{ tech }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-danger">No technology skills found.</p>
-        {% endif %}
-
-        <!-- Resumes Section -->
-        <h2 class="mb-3">Top Candidates</h2>
-        {% if user_data %}
-            <ul class="list-group">
-                {% for user in user_data %}
-                    <li class="list-group-item">
-                        <strong>Name:</strong> {{ user['name'] }}<br>
-                        <strong>Email:</strong> {{ user['email'] }}<br>
-                        <strong>Skills:</strong> {{ user['skills']|join(', ') }}<br>
-                        <strong>Resume:</strong> <a href="/fetch_resume/{{ user['resume_id'] }}">View Resume</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="text-danger">No resumes found.</p>
-            {% endif %}
-        </div>
-    
-       
-    </body>
-    {% endblock %}
+{% block content %}
+<div class="container">
+    <h2>
+        {{resume.name}}
+    </h2>
+  <!-- iframe for pdf -->
+  <iframe src="/static/upload/{{resume.path}}" width="100%" height="1200px"></iframe>
+</div>
+{% endblock %}
