@@ -195,6 +195,9 @@ def show_jobs():
 
 @app.route('/home')
 def home():
+    if 'isauth' not in session or not session['isauth']:
+        flash('Please login to go home', 'danger')
+        return redirect('/login')
     return render_template('home.html')
     
 
@@ -292,6 +295,9 @@ def delete_resume(resume_id):
 # view resume
 @app.route('/resume/show/<int:id>')
 def resumeview(id):
+    if not is_admin():
+        flash('You are not authorized view resume', 'danger')
+        return redirect('/show/jobs')
     db = db_manager.open_db()
     file = db.query(File).filter(File.id==id).first()
     if file is not None:
