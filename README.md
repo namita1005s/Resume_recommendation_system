@@ -12,3 +12,15 @@
 ![Analyse](127.0.0.1_8000_analyse_resumes_23.png)
 ![View Describtion of job](image-10.png)
 ![Edit Job](image-11.png)
+
+pip install -r requirements.txt
+
+To run website
+
+flask db migrate
+flask db upgrade
+flask run
+flask db upgrade
+
+login 
+Username - admin, password - admin ,email - admin@gmail.com
