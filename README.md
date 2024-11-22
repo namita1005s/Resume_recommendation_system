@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 To run website
 
-flask db migrate
+flask db migrate\n
 flask db upgrade
 flask run
 flask db upgrade
