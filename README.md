@@ -1,4 +1,3 @@
-
 # Resume_recommending_using_AI
 
 The primary objective of the AI-Driven Recruitment Platform is to revolutionize the hiring process by leveraging advanced technologies. The project aims to create a user-friendly web application that seamlessly connects recruiters and job seekers while incorporating artificial intelligence (AI) for efficient resume screening and recommendation. By automating key aspects of recruitment, the goal is to enhance accuracy, reduce biases, and streamline the overall hiring experience.
@@ -48,19 +47,21 @@ Username- admin
 passward- admin
 email- admin@gmail.com
 
-## Screenshots
+<!-- ![Welcome Page](image.png)
+![About](127.0.0.1_8000_about.png)
+![Register](image-1.png)
+![Login](image-2.png)
+![Home Page](image-3.png)
+![Menu](image-4.png)
+![Add Resume](image-5.png)
+![View Resume](image-6.png)
+![Add Jobs](image-7.png)
+![View Jobs](image-8.png)
+![Settings](image-9.png)
+![Analyse](127.0.0.1_8000_analyse_resumes_23.png)
+![View Describtion of job](image-10.png)
+![Edit Job](image-11.png)
 
-![Screenshot 1](Screenshot 2024-06-04 211811.png)
-![Screenshot 2](Screenshot 2024-06-04 211839.png)
-![Screenshot 3](Screenshot 2024-06-04 211915.png)
-![Screenshot 4](Screenshot 2024-06-04 211952.png)
-![Screenshot 5](Screenshot 2024-06-04 212026.png)
-![Screenshot 6](Screenshot 2024-06-04 212059.png)
-![Screenshot 7](Screenshot 2024-06-04 213622.png)
-![Screenshot 8](Screenshot 2024-06-04 213730.png)
-![Screenshot 9](127.0.0.1_8000_about (1).png)
-![Screenshot 10](127.0.0.1_8000_analyse_resumes_23 (1).png)
-![Screenshot 11](Screenshot 2024-06-04 210204.png)
-![Screenshot 12](Screenshot 2024-06-04 211549.png)
-![Screenshot 13](Screenshot 2024-06-04 211635.png)
-![Screenshot 14](Screenshot 2024-06-04 211729.png)
+
+
+
