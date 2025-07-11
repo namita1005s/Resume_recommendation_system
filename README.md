@@ -47,9 +47,9 @@ Username- admin
 passward- admin
 email- admin@gmail.com
 
-##Images
+## Screenshots
 
-<!-- ![Welcome Page](image.png)
+![Welcome Page](image.png)
 ![About](127.0.0.1_8000_about.png)
 ![Register](image-1.png)
 ![Login](image-2.png)
