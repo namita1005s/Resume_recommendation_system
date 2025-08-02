@@ -49,7 +49,7 @@ email- admin@gmail.com
 
 ## Screenshots
 
-![Welcome Page](image.png)
+![Welcome Page](welcome.png)
 ![About](127.0.0.1_8000_about.png)
 ![Register](image-1.png)
 ![Login](image-2.png)
