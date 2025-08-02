@@ -55,7 +55,6 @@ email- admin@gmail.com
 ![Home Page](firstpage.png)
 ![Menu](menu.png)
 ![Add Resume](addresume.png)
-![View Resume](image-6.png)
 ![Add Jobs](jobs.png)
 ![View Jobs](jobdesription.png)
 ![Settings](settings.png)
